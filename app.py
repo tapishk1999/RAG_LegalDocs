@@ -69,7 +69,6 @@ with st.sidebar:
     st.markdown("**RAG over Indian parliamentary acts**")
     st.divider()
 
-    # Retrieval strategy selector
     chain_label = st.radio(
         "Retrieval Strategy",
         options=[
@@ -117,7 +116,6 @@ if not api_key:
     )
     st.stop()
 
-# Load chains
 try:
     chains, _ = load_chains(api_key)
 except Exception as e:
@@ -145,8 +143,9 @@ for msg in st.session_state["messages"]:
         if msg.get("latency"):
             st.caption(f"⏱ {msg['latency']:.2f}s · {chain_label}")
 
-# ── Chat input ────────────────────────────────────────────────────────────────
-if question := st.chat_input("Ask a question about Indian law…"):
+
+def _process_question(question: str) -> None:
+    """Append user message, run the chain, render assistant reply with sources."""
     st.session_state["messages"].append({"role": "user", "content": question})
     with st.chat_message("user"):
         st.markdown(question)
@@ -203,7 +202,16 @@ if question := st.chat_input("Ask a question about Indian law…"):
             except Exception as e:
                 st.error(f"Error: {e}")
 
-# ── Sample questions ──────────────────────────────────────────────────────────
+
+# ── Question intake: chat_input OR pending sample-question from a button click ──
+typed_question = st.chat_input("Ask a question about Indian law…")
+pending_question = st.session_state.pop("pending_question", None)
+question = typed_question or pending_question
+
+if question:
+    _process_question(question)
+
+# ── Sample questions (only when conversation is empty) ────────────────────────
 if not st.session_state["messages"]:
     st.divider()
     st.markdown("**Try these questions:**")
@@ -219,5 +227,7 @@ if not st.session_state["messages"]:
     for i, q in enumerate(sample_qs):
         with cols[i % 3]:
             if st.button(q, use_container_width=True, key=f"sample_{i}"):
-                st.session_state["messages"].append({"role": "user", "content": q})
+                # Store the question and rerun so it gets picked up at the
+                # top of the script and processed via _process_question().
+                st.session_state["pending_question"] = q
                 st.rerun()
