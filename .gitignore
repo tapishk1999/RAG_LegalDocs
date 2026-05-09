@@ -1,0 +1,23 @@
+# Secrets — never commit
+.env
+.streamlit/secrets.toml
+
+# Vector stores (rebuild from PDFs via `python ingest.py`)
+vectorstore/
+
+# Evaluation outputs
+evaluation/results.csv
+evaluation/all_results.csv
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+
+# OS / editor cruft
+.DS_Store
+.idea/
+.vscode/
+*.swp
