@@ -30,6 +30,17 @@ ACT_META = {
         "year": "2021",
         "domain": "Judicial Reform",
     },
+    # ── New ───────────────────────────────────────────────────────
+    "farm laws repeal": {
+        "act_name": "The Farm Laws Repeal Act, 2021",
+        "year": "2021",
+        "domain": "Agricultural Law",
+    },
+    "citizenship": {
+        "act_name": "The Citizenship (Amendment) Act, 2019",
+        "year": "2019",
+        "domain": "Citizenship Law",
+    },
 }
 
 # Regex patterns for structural markers
