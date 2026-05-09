@@ -9,6 +9,8 @@ LexQuery answers natural-language questions over three Indian acts:
 - **The Copyright Act, 1957**
 - **The Muslim Women (Protection of Rights on Marriage) Act, 2019**
 - **The Tribunals Reforms Act, 2021**
+- **Farm laws Repeal Act, 2021**
+- **Citizenship (Amendment) Bill, 2019**
 
 Answers are grounded in the source text, with citations to the specific Act and section number, and surfaced through a Streamlit chat UI that lets you switch between retrieval strategies on the fly.
 
