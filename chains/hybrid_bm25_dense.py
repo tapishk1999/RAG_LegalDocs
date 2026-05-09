@@ -90,10 +90,6 @@ def _format_docs(docs: List[Document]) -> str:
 
 
 def _detect_act_filter(query: str) -> Optional[str]:
-    """
-    Heuristic: if query mentions a specific act, return its act_name string
-    so retrieval can be filtered to that act's documents.
-    """
     query_lower = query.lower()
     if "copyright" in query_lower:
         return "The Copyright Act, 1957"
@@ -101,6 +97,11 @@ def _detect_act_filter(query: str) -> Optional[str]:
         return "The Muslim Women (Protection of Rights on Marriage) Act, 2019"
     if "tribunal" in query_lower:
         return "The Tribunals Reforms Act, 2021"
+    # ── New ────────────────────────────────────────────────────
+    if "farm" in query_lower or "farmer" in query_lower or "repeal" in query_lower:
+        return "The Farm Laws Repeal Act, 2021"
+    if "citizenship" in query_lower or "caa" in query_lower or "naturalisation" in query_lower:
+        return "The Citizenship (Amendment) Act, 2019"
     return None
 
 
